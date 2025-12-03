@@ -8,19 +8,16 @@ module pwm #(
 
     reg [WIDTH-1:0] cnt = 0;
 
-    always @(posedge clk) begin
-        if (cnt >= period - 1)
-            cnt <= 0;
-        else
-            cnt <= cnt + 1;
-    end
-
     // PWM
     always @(posedge clk) begin
-        if (cnt < (period >> 1))
+        if (cnt >= period - 1) begin
+            cnt <= 0;
             out <= 1'b1;
-        else
+        end
+        else begin
+            cnt <= cnt + 1;
             out <= 1'b0;
+        end
     end
 
 endmodule
