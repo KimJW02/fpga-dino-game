@@ -534,7 +534,7 @@ module audio #(
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
-    input wire [3:0] state, // 0: idle, 1: bgm, 2: item, 3: debuf, 4: jump
+    input wire [3:0] state, // [bgm, item, debuf, jump]
     output wire piezo
 );
 
