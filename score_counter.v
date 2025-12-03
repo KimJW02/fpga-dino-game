@@ -1,8 +1,8 @@
 module score_counter(
     input wire clk,
     input wire rst,
-    input wire [23:0] period,
-    output reg [15:0] score = 0
+    input wire [31:0] period,
+    output reg [31:0] score = 0
 );
     wire pwm_out;
     pwm p1(clk, period, pwm_out);
