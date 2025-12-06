@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Thu Nov 27 19:00:24 2025
-# Process ID: 33240
+# Start of session at: Sat Dec  6 17:16:02 2025
+# Process ID: 19136
 # Current directory: C:/nonseol/dino2/dino2.runs/synth_1
 # Command line: vivado.exe -log top_dino.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_dino.tcl
 # Log file: C:/nonseol/dino2/dino2.runs/synth_1/top_dino.vds

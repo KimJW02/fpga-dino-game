@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Thu Nov 27 19:02:02 2025
+| Date         : Sat Dec  6 17:19:20 2025
 | Host         : DESKTOP-GD46CMC running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_dino_control_sets_placed.rpt
 | Design       : top_dino
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    19 |
-|    Minimum number of control sets                        |    19 |
+| Total control sets                                       |    24 |
+|    Minimum number of control sets                        |    24 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    62 |
+| Unused register locations in slices containing registers |    76 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    19 |
+| Total control sets |    24 |
 | >= 0 to < 4        |     1 |
-| >= 4 to < 6        |     4 |
+| >= 4 to < 6        |     6 |
 | >= 6 to < 8        |     1 |
-| >= 8 to < 10       |     4 |
-| >= 10 to < 12      |     0 |
-| >= 12 to < 14      |     2 |
+| >= 8 to < 10       |     5 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     1 |
 | >= 14 to < 16      |     0 |
-| >= 16              |     7 |
+| >= 16              |     9 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -59,10 +59,10 @@ Table of Contents
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | No           | No                    | No                     |               0 |            0 |
-| No           | No                    | Yes                    |              89 |           28 |
+| No           | No                    | Yes                    |             123 |           48 |
 | No           | Yes                   | No                     |               0 |            0 |
-| Yes          | No                    | No                     |              13 |            8 |
-| Yes          | No                    | Yes                    |             348 |          104 |
+| Yes          | No                    | No                     |              13 |           10 |
+| Yes          | No                    | Yes                    |             372 |          113 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -70,28 +70,33 @@ Table of Contents
 4. Detailed Control Set Information
 -----------------------------------
 
-+--------------------+--------------------------------+------------------+------------------+----------------+--------------+
-|    Clock Signal    |          Enable Signal         | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
-+--------------------+--------------------------------+------------------+------------------+----------------+--------------+
-|  clk_main_BUFG     | u_lcd/lcd_en_i_1_n_0           | rst_n_IBUF       |                1 |              1 |         1.00 |
-|  clk_main_BUFG     | u_lcd/return_state[3]_i_1_n_0  | rst_n_IBUF       |                2 |              4 |         2.00 |
-|  clk_main_BUFG     | u_seg/rst_core_n               |                  |                3 |              4 |         1.33 |
-|  clk_main_BUFG     | u_lcd/ddram_idx[4]_i_1_n_0     | rst_n_IBUF       |                2 |              5 |         2.50 |
-|  clk_main_BUFG     | FSM_onehot_state[4]_i_1_n_0    | rst_n_IBUF       |                2 |              5 |         2.50 |
-|  clk_50m_IBUF_BUFG |                                | rst_n_IBUF       |                2 |              7 |         3.50 |
-|  clk_main_BUFG     | u_item/E[0]                    | rst_n_IBUF       |                4 |              8 |         2.00 |
-|  clk_main_BUFG     | air_cnt[7]_i_1_n_0             | rst_n_IBUF       |                3 |              8 |         2.67 |
-|  clk_main_BUFG     | u_lcd/lcd_rs_i_1_n_0           | rst_n_IBUF       |                4 |              9 |         2.25 |
-|  clk_main_BUFG     | u_lcd/send_byte[7]_i_1_n_0     |                  |                5 |              9 |         1.80 |
-|  clk_main_BUFG     | u_lcd/cgram_idx_rep[5]_i_1_n_0 | rst_n_IBUF       |                4 |             12 |         3.00 |
-|  clk_main_BUFG     | scan_clk_pulse                 | rst_n_IBUF       |                3 |             12 |         4.00 |
-|  clk_main_BUFG     | u_lcd/wait_cnt[15]_i_1_n_0     | rst_n_IBUF       |                5 |             16 |         3.20 |
-|  clk_main_BUFG     | hello_cnt_main                 | rst_n_IBUF       |                3 |             18 |         6.00 |
-|  clk_main_BUFG     | u_bcd/bcd_out[31]_i_1_n_0      | rst_n_IBUF       |                9 |             32 |         3.56 |
-|  clk_main_BUFG     | u_score/life_count112_out      | rst_n_IBUF       |                8 |             32 |         4.00 |
-|  clk_main_BUFG     | u_bcd/bitcount                 | rst_n_IBUF       |               14 |             70 |         5.00 |
-|  clk_main_BUFG     |                                | rst_n_IBUF       |               26 |             82 |         3.15 |
-|  clk_main_BUFG     | move_tick                      | rst_n_IBUF       |               40 |            116 |         2.90 |
-+--------------------+--------------------------------+------------------+------------------+----------------+--------------+
++------------------------+--------------------------------+------------------+------------------+----------------+--------------+
+|      Clock Signal      |          Enable Signal         | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
++------------------------+--------------------------------+------------------+------------------+----------------+--------------+
+|  clk_main_reg_n_0_BUFG | u_lcd/lcd_en_i_1_n_0           | rst_n_IBUF       |                1 |              1 |         1.00 |
+|  clk_main_reg_n_0_BUFG | u_lcd/return_state[3]_i_1_n_0  | rst_n_IBUF       |                1 |              4 |         4.00 |
+|  scan_clk_reg_n_0      | u_seg/rst_core_n               |                  |                3 |              4 |         1.33 |
+|  clk_main_reg_n_0_BUFG | FSM_onehot_state[4]_i_1_n_0    | rst_n_IBUF       |                2 |              5 |         2.50 |
+|  clk_main_reg_n_0_BUFG | spawn_safety_cnt[4]_i_1_n_0    | rst_n_IBUF       |                1 |              5 |         5.00 |
+|  clk_main_reg_n_0_BUFG | u_score/cell_div_cnt_reg[0]    | rst_n_IBUF       |                4 |              5 |         1.25 |
+|  clk_main_reg_n_0_BUFG | u_lcd/ddram_idx[4]_i_1_n_0     | rst_n_IBUF       |                1 |              5 |         5.00 |
+|  clk_main_reg_n_0_BUFG | u_obs/gap_cnt                  | rst_n_IBUF       |                2 |              6 |         3.00 |
+|  clk_main_reg_n_0_BUFG | air_cnt[7]_i_1_n_0             | rst_n_IBUF       |                3 |              8 |         2.67 |
+|  clk_main_reg_n_0_BUFG | u_item/E[0]                    | rst_n_IBUF       |                2 |              8 |         4.00 |
+|  clk_main_reg_n_0_BUFG | move_tick                      | rst_n_IBUF       |                3 |              9 |         3.00 |
+|  clk_main_reg_n_0_BUFG | u_lcd/send_byte[7]_i_1_n_0     |                  |                7 |              9 |         1.29 |
+|  clk_main_reg_n_0_BUFG | u_lcd/lcd_rs_i_1_n_0           | rst_n_IBUF       |                4 |              9 |         2.25 |
+|  clk_50m_IBUF_BUFG     |                                | rst_n_IBUF       |                3 |             10 |         3.33 |
+|  clk_main_reg_n_0_BUFG | u_lcd/cgram_idx_rep[5]_i_1_n_0 | rst_n_IBUF       |                3 |             12 |         4.00 |
+|  clk_main_reg_n_0_BUFG | hello_cnt_main                 | rst_n_IBUF       |                4 |             17 |         4.25 |
+|  scan_clk_reg_n_0      |                                | rst_n_IBUF       |                3 |             18 |         6.00 |
+|  clk_main_reg_n_0_BUFG | u_lcd/wait_cnt[31]_i_1_n_0     | rst_n_IBUF       |               15 |             32 |         2.13 |
+|  clk_main_reg_n_0_BUFG | u_obs/obs_top[15]_i_1_n_0      | rst_n_IBUF       |               12 |             32 |         2.67 |
+|  clk_main_reg_n_0_BUFG | u_bcd/done_i_1_n_0             | rst_n_IBUF       |                5 |             32 |         6.40 |
+|  clk_main_reg_n_0_BUFG | u_bcd/E[0]                     | rst_n_IBUF       |                5 |             32 |         6.40 |
+|  clk_main_reg_n_0_BUFG | u_bcd/bitcount[5]_i_1_n_0      | rst_n_IBUF       |               15 |             70 |         4.67 |
+|  clk_main_reg_n_0_BUFG | u_item/life_top[15]_i_1_n_0    | rst_n_IBUF       |               30 |             80 |         2.67 |
+|  clk_main_reg_n_0_BUFG |                                | rst_n_IBUF       |               42 |             95 |         2.26 |
++------------------------+--------------------------------+------------------+------------------+----------------+--------------+
 
 

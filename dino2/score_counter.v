@@ -1,31 +1,33 @@
 `timescale 1ns / 1ps
-
-module score_counter (
-    input  wire        clk_game,      // game tick clock
-    input  wire        rst_n,         // active-low reset
-    input  wire        enable,        // only count when PLAY
-    input  wire        hit_debuff,    // one-tick pulse when debuff item collected
-    input  wire        hit_bonus,     // one-tick pulse when bonus item collected
-    output reg  [31:0] score_out
+module score_counter #(
+    parameter BASE_INC    = 10,        // per tick
+    parameter DEBUF_SCORE = 300,       // 감점 점수
+    parameter MAX_SCORE   = 32'd99999999 // 8-digit limit for BCD display
+)(
+    input  wire        clk_game,
+    input  wire        rst_n,
+    input  wire        enable,
+    input  wire        hit_debuff,
+    output reg [31:0]  score_out
 );
+    reg [31:0] next_score;
     always @(posedge clk_game or negedge rst_n) begin
         if (!rst_n) begin
             score_out <= 32'd0;
         end else begin
-            if (!enable) begin
-                // hold score when not enabled; not resetting here
-                score_out <= score_out;
-            end else begin
-                // base increment per tick
-                score_out <= score_out + 32'd1;
-                // apply bonus (additional +10)
-                if (hit_bonus) score_out <= score_out + 32'd10;
-                // apply debuff (subtract 300 safe-guard)
-                if (hit_debuff) begin
-                    if (score_out >= 32'd300) score_out <= score_out - 32'd300;
-                    else score_out <= 32'd0;
-                end
+            next_score = score_out;
+
+            if (enable) begin
+                if (next_score + BASE_INC > MAX_SCORE) next_score = MAX_SCORE;
+                else next_score = next_score + BASE_INC;
             end
+
+            if (hit_debuff) begin
+                if (next_score <= DEBUF_SCORE) next_score = 32'd0;
+                else next_score = next_score - DEBUF_SCORE;
+            end
+            
+            score_out <= next_score;
         end
     end
 endmodule
