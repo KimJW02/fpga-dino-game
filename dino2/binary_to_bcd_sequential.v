@@ -1,47 +1,53 @@
 module binary_to_bcd_sequential (
-    input  wire        clk,       // conversion clock (can be slow like 1kHz)
+    input  wire        clk,
     input  wire        rst_n,
-    input  wire        start,     // start pulse (one clk)
-    input  wire [31:0] bin_in,    // binary input
-    output reg         done,      // goes high one clk when finished
-    output reg [31:0]  bcd_out    // 8 digits × 4 bits (MSD..LSD)
+    input  wire        start,
+    input  wire [31:0] bin_in,
+    output reg         done,
+    output reg [31:0]  bcd_out
 );
-    // internal work register: [63:0] = {BCD(32 bits) , BIN(32 bits)}
     reg [63:0] work;
-    reg [5:0]  bitcount; // 0..32
+    reg [5:0]  bitcount;
     reg        busy;
 
+    reg [31:0] bcd_tmp;
+    reg [63:0] next_work;
     integer k;
+
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            work <= 64'd0;
+            work     <= 64'd0;
             bitcount <= 6'd0;
-            busy <= 1'b0;
-            done <= 1'b0;
-            bcd_out <= 32'd0;
+            busy     <= 1'b0;
+            done     <= 1'b0;
+            bcd_out  <= 32'd0;
         end else begin
             done <= 1'b0;
+
+            // ? start는 top에서 이미 1클럭 펄스라고 가정
             if (start && !busy) begin
-                // initialize: upper 32 bits zero (BCD), lower 32 bits = bin_in
-                work <= {32'h0, bin_in};
+                work     <= {32'h0, bin_in};
                 bitcount <= 6'd32;
-                busy <= 1'b1;
+                busy     <= 1'b1;
             end else if (busy) begin
-                // for each step: if any 4-bit BCD field >=5 add 3
-                // BCD fields in work[63:32] (8 fields)
+                bcd_tmp = work[63:32];
+
                 for (k = 0; k < 8; k = k + 1) begin
-                    if (work[63 - (k*4) -: 4] >= 4'd5) begin
-                        work[63 - (k*4) -: 4] <= work[63 - (k*4) -: 4] + 4'd3;
-                    end
+                    if (bcd_tmp[31 - (k*4) -: 4] >= 4'd5)
+                        bcd_tmp[31 - (k*4) -: 4] =
+                            bcd_tmp[31 - (k*4) -: 4] + 4'd3;
                 end
-                // shift left by 1
-                work <= work << 1;
-                bitcount <= bitcount - 1'b1;
-                if (bitcount == 1) begin
-                    // finished after this shift
-                    busy <= 1'b0;
-                    bcd_out <= work[63:32]; // BCD digits
-                    done <= 1'b1;
+
+                next_work = ({bcd_tmp, work[31:0]}) << 1;
+                work <= next_work;
+
+                if (bitcount == 6'd1) begin
+                    busy    <= 1'b0;
+                    bcd_out <= next_work[63:32];
+                    done    <= 1'b1;
+                    bitcount<= 6'd0;
+                end else begin
+                    bitcount<= bitcount - 1'b1;
                 end
             end
         end

@@ -17,47 +17,57 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s75'
 INFO: [Device 21-403] Loading part xc7s75fgga484-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 23224
-WARNING: [Synth 8-992] seg7 is already implicitly declared earlier [C:/nonseol/dino2/top_dino.v:371]
-WARNING: [Synth 8-992] an7 is already implicitly declared earlier [C:/nonseol/dino2/top_dino.v:371]
+INFO: [Synth 8-7075] Helper process launched with PID 21588
+WARNING: [Synth 8-6901] identifier 'start_req' is used before its declaration [C:/nonseol/dino2/top_dino.v:212]
+WARNING: [Synth 8-6901] identifier 'start_req' is used before its declaration [C:/nonseol/dino2/top_dino.v:214]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1024.625 ; gain = 0.000
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'top_dino' [C:/nonseol/dino2/top_dino.v:2]
-	Parameter SCAN_DIV bound to: 16'b0001001110001000 
-	Parameter MOVE_HZ bound to: 400 - type: integer 
-	Parameter MOVE_DIV bound to: 12500 - type: integer 
-	Parameter MOVE_DIV_W bound to: 14 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'top_dino' [C:/nonseol/dino2/top_dino.v:3]
+	Parameter SCAN_DIV bound to: 20'b00001100001101010000 
+	Parameter SCAN_DIV_HALF bound to: 50 - type: integer 
+	Parameter CLK_MAIN_FREQ_HZ bound to: 100000 - type: integer 
+	Parameter MOVE_HZ bound to: 50 - type: integer 
+	Parameter MOVE_DIV bound to: 2000 - type: integer 
+	Parameter MOVE_DIV_W bound to: 11 - type: integer 
+	Parameter SHIFT_DIV_GAME bound to: 5 - type: integer 
+	Parameter ITEM_SHIFT_DIV_GAME bound to: 5 - type: integer 
+	Parameter LDW bound to: 3 - type: integer 
 	Parameter S_HELLO bound to: 3'b000 
 	Parameter S_MODE bound to: 3'b001 
 	Parameter S_READY bound to: 3'b010 
 	Parameter S_PLAY bound to: 3'b011 
 	Parameter S_OVER bound to: 3'b100 
-	Parameter HELLO_CNT_MAX bound to: 250000 - type: integer 
-	Parameter HELLO_TICKS bound to: 250000 - type: integer 
+	Parameter HELLO_TICKS bound to: 125000 - type: integer 
 	Parameter DJ_GROUND bound to: 0 - type: integer 
 	Parameter DJ_ASCEND bound to: 1 - type: integer 
 	Parameter DJ_AIR bound to: 2 - type: integer 
 	Parameter DJ_DESCEND bound to: 3 - type: integer 
-INFO: [Synth 8-155] case statement is not full and has no default [C:/nonseol/dino2/top_dino.v:227]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/nonseol/dino2/top_dino.v:328]
 INFO: [Synth 8-6157] synthesizing module 'lfsr16' [C:/nonseol/dino2/lfsr16.v:2]
 INFO: [Synth 8-6155] done synthesizing module 'lfsr16' (1#1) [C:/nonseol/dino2/lfsr16.v:2]
-INFO: [Synth 8-6157] synthesizing module 'difficulty_manage' [C:/nonseol/dino2/difficulty_manage.v:2]
-INFO: [Synth 8-6155] done synthesizing module 'difficulty_manage' (2#1) [C:/nonseol/dino2/difficulty_manage.v:2]
+INFO: [Synth 8-6157] synthesizing module 'difficulty_manage' [C:/nonseol/dino2/difficulty_manage.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'difficulty_manage' (2#1) [C:/nonseol/dino2/difficulty_manage.v:1]
 INFO: [Synth 8-6157] synthesizing module 'obstacle_generator' [C:/nonseol/dino2/obstacle_generator.v:1]
+	Parameter SHIFT_DIV bound to: 5 - type: integer 
+	Parameter SDW bound to: 3 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'obstacle_generator' (3#1) [C:/nonseol/dino2/obstacle_generator.v:1]
 INFO: [Synth 8-6157] synthesizing module 'item_generator' [C:/nonseol/dino2/item_generator.v:1]
+	Parameter ITEM_SHIFT_DIV bound to: 5 - type: integer 
+	Parameter IDW bound to: 3 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'item_generator' (4#1) [C:/nonseol/dino2/item_generator.v:1]
-WARNING: [Synth 8-689] width (32) of port connection 'score_in' does not match port width (16) of module 'item_generator' [C:/nonseol/dino2/top_dino.v:288]
 INFO: [Synth 8-6157] synthesizing module 'life_manager' [C:/nonseol/dino2/life_manager.v:2]
 INFO: [Synth 8-6155] done synthesizing module 'life_manager' (5#1) [C:/nonseol/dino2/life_manager.v:2]
-INFO: [Synth 8-6157] synthesizing module 'score_counter' [C:/nonseol/dino2/score_counter.v:3]
-INFO: [Synth 8-6155] done synthesizing module 'score_counter' (6#1) [C:/nonseol/dino2/score_counter.v:3]
+INFO: [Synth 8-6157] synthesizing module 'score_counter' [C:/nonseol/dino2/score_counter.v:2]
+	Parameter BASE_INC bound to: 10 - type: integer 
+	Parameter DEBUF_SCORE bound to: 300 - type: integer 
+	Parameter MAX_SCORE bound to: 99999999 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'score_counter' (6#1) [C:/nonseol/dino2/score_counter.v:2]
 INFO: [Synth 8-6157] synthesizing module 'binary_to_bcd_sequential' [C:/nonseol/dino2/binary_to_bcd_sequential.v:1]
 INFO: [Synth 8-6155] done synthesizing module 'binary_to_bcd_sequential' (7#1) [C:/nonseol/dino2/binary_to_bcd_sequential.v:1]
-INFO: [Synth 8-6157] synthesizing module 'seven_segment_driver' [C:/nonseol/dino2/seven_segment_driver.v:1]
-INFO: [Synth 8-226] default block is never used [C:/nonseol/dino2/seven_segment_driver.v:17]
-INFO: [Synth 8-6155] done synthesizing module 'seven_segment_driver' (8#1) [C:/nonseol/dino2/seven_segment_driver.v:1]
+INFO: [Synth 8-6157] synthesizing module 'seven_segment_driver' [C:/nonseol/dino2/seven_segment_driver.v:2]
+INFO: [Synth 8-226] default block is never used [C:/nonseol/dino2/seven_segment_driver.v:37]
+INFO: [Synth 8-6155] done synthesizing module 'seven_segment_driver' (8#1) [C:/nonseol/dino2/seven_segment_driver.v:2]
 INFO: [Synth 8-6157] synthesizing module 'lcd_driver' [C:/nonseol/dino2/lcd_driver.v:1]
 	Parameter L_PWR_WAIT bound to: 4'b0000 
 	Parameter L_FUNCSET bound to: 4'b0001 
@@ -76,26 +86,26 @@ INFO: [Synth 8-6157] synthesizing module 'lcd_driver' [C:/nonseol/dino2/lcd_driv
 	Parameter CMD_DISPON bound to: 8'b00001100 
 	Parameter CMD_CLEAR bound to: 8'b00000001 
 	Parameter CMD_ENTRY bound to: 8'b00000110 
-	Parameter PWR_WAIT_CNT bound to: 16'b1100001101010000 
-	Parameter PULSE_WIDTH bound to: 16'b0000000000000010 
-	Parameter EXEC_WAIT bound to: 16'b0000000001010000 
-	Parameter CLEAR_WAIT bound to: 16'b0000011111010000 
-INFO: [Synth 8-155] case statement is not full and has no default [C:/nonseol/dino2/lcd_driver.v:325]
+	Parameter PWR_WAIT_CNT bound to: 250000 - type: integer 
+	Parameter PULSE_WIDTH bound to: 2 - type: integer 
+	Parameter EXEC_WAIT bound to: 400 - type: integer 
+	Parameter CLEAR_WAIT bound to: 10000 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/nonseol/dino2/lcd_driver.v:329]
 INFO: [Synth 8-6155] done synthesizing module 'lcd_driver' (9#1) [C:/nonseol/dino2/lcd_driver.v:1]
-INFO: [Synth 8-6155] done synthesizing module 'top_dino' (10#1) [C:/nonseol/dino2/top_dino.v:2]
+INFO: [Synth 8-6155] done synthesizing module 'top_dino' (10#1) [C:/nonseol/dino2/top_dino.v:3]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 1024.625 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:15 . Memory (MB): peak = 1024.625 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:15 . Memory (MB): peak = 1024.625 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 1391.887 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1024.625 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -106,26 +116,26 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_dino_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1391.887 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1074.691 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 1391.887 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 1074.691 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:18 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Constraint Validation : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7s75fgga484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:18 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:18 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'top_dino'
 INFO: [Synth 8-802] inferred FSM for state register 'jump_state_reg' in module 'top_dino'
@@ -142,73 +152,78 @@ INFO: [Synth 8-3354] encoded FSM with state register 'jump_state_reg' using enco
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
                  S_HELLO |                            00001 |                              000
-                  S_MODE |                            00010 |                              001
-                 S_READY |                            00100 |                              010
-                  S_PLAY |                            01000 |                              011
-                  S_OVER |                            10000 |                              100
+                  S_MODE |                            10000 |                              001
+                 S_READY |                            01000 |                              010
+                  S_PLAY |                            00100 |                              011
+                  S_OVER |                            00010 |                              100
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'top_dino'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:19 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:27 ; elapsed = 00:00:34 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   32 Bit       Adders := 1     
-	   2 Input   18 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 3     
+	   2 Input   17 Bit       Adders := 1     
 	   2 Input   16 Bit       Adders := 1     
-	   2 Input    8 Bit       Adders := 4     
-	   2 Input    7 Bit       Adders := 1     
-	   2 Input    6 Bit       Adders := 4     
-	   2 Input    5 Bit       Adders := 1     
-	   2 Input    3 Bit       Adders := 2     
+	   2 Input   11 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 3     
+	   2 Input    6 Bit       Adders := 3     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 8     
+	   2 Input    3 Bit       Adders := 4     
 +---XORs : 
-	   2 Input      1 Bit         XORs := 1     
+	   4 Input      1 Bit         XORs := 1     
 +---Registers : 
 	               64 Bit    Registers := 1     
-	               32 Bit    Registers := 2     
+	               32 Bit    Registers := 5     
 	               16 Bit    Registers := 8     
+	               11 Bit    Registers := 1     
+	                9 Bit    Registers := 1     
 	                8 Bit    Registers := 6     
 	                7 Bit    Registers := 1     
 	                6 Bit    Registers := 3     
-	                5 Bit    Registers := 1     
+	                5 Bit    Registers := 2     
 	                4 Bit    Registers := 3     
-	                3 Bit    Registers := 2     
+	                3 Bit    Registers := 4     
 	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 19    
+	                1 Bit    Registers := 23    
 +---Muxes : 
 	   2 Input   64 Bit        Muxes := 1     
-	   2 Input   32 Bit        Muxes := 1     
-	   2 Input   18 Bit        Muxes := 1     
-	   2 Input   16 Bit        Muxes := 5     
-	  14 Input   16 Bit        Muxes := 1     
-	   4 Input   16 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 9     
+	  14 Input   32 Bit        Muxes := 1     
+	   4 Input   32 Bit        Muxes := 1     
+	   2 Input   17 Bit        Muxes := 1     
+	   2 Input   11 Bit        Muxes := 1     
+	   2 Input    9 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 4     
 	  65 Input    8 Bit        Muxes := 1     
 	  14 Input    8 Bit        Muxes := 1     
-	   4 Input    8 Bit        Muxes := 2     
-	   2 Input    8 Bit        Muxes := 2     
-	   2 Input    7 Bit        Muxes := 2     
+	   4 Input    8 Bit        Muxes := 1     
+	   2 Input    7 Bit        Muxes := 6     
 	   6 Input    7 Bit        Muxes := 27    
 	   2 Input    6 Bit        Muxes := 9     
+	  14 Input    6 Bit        Muxes := 1     
 	   6 Input    6 Bit        Muxes := 1     
 	   5 Input    6 Bit        Muxes := 1     
 	   4 Input    6 Bit        Muxes := 26    
 	   9 Input    6 Bit        Muxes := 4     
-	   2 Input    5 Bit        Muxes := 5     
 	  14 Input    5 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 4     
+	   2 Input    5 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 13    
 	   5 Input    4 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 4     
-	   3 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 5     
 	   5 Input    3 Bit        Muxes := 1     
 	  17 Input    2 Bit        Muxes := 1     
 	   4 Input    2 Bit        Muxes := 1     
 	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 27    
+	   2 Input    1 Bit        Muxes := 43    
 	  14 Input    1 Bit        Muxes := 10    
-	   4 Input    1 Bit        Muxes := 7     
+	   4 Input    1 Bit        Muxes := 6     
 	  17 Input    1 Bit        Muxes := 2     
 	   5 Input    1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
@@ -227,25 +242,25 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:42 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:33 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:48 ; elapsed = 00:00:57 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:33 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Timing Optimization : Time (s): cpu = 00:00:48 ; elapsed = 00:00:57 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:28 ; elapsed = 00:00:34 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Technology Mapping : Time (s): cpu = 00:00:49 ; elapsed = 00:00:58 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -263,37 +278,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished IO Insertion : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -310,41 +325,41 @@ Report Cell Usage:
 |      |Cell   |Count |
 +------+-------+------+
 |1     |BUFG   |     2|
-|2     |CARRY4 |    45|
-|3     |LUT1   |    32|
-|4     |LUT2   |   101|
-|5     |LUT3   |   100|
-|6     |LUT4   |   102|
-|7     |LUT5   |    65|
-|8     |LUT6   |   263|
-|9     |MUXF7  |    15|
+|2     |CARRY4 |    41|
+|3     |LUT1   |    10|
+|4     |LUT2   |   108|
+|5     |LUT3   |    97|
+|6     |LUT4   |   183|
+|7     |LUT5   |    92|
+|8     |LUT6   |   317|
+|9     |MUXF7  |    16|
 |10    |MUXF8  |     2|
-|11    |FDCE   |   416|
-|12    |FDPE   |    21|
+|11    |FDCE   |   466|
+|12    |FDPE   |    29|
 |13    |FDRE   |    13|
 |14    |IBUF   |     6|
 |15    |OBUF   |    35|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:22 ; elapsed = 00:00:34 . Memory (MB): peak = 1391.887 ; gain = 7.324
-Synthesis Optimization Complete : Time (s): cpu = 00:00:31 ; elapsed = 00:00:37 . Memory (MB): peak = 1391.887 ; gain = 7.324
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:38 ; elapsed = 00:00:57 . Memory (MB): peak = 1074.691 ; gain = 0.000
+Synthesis Optimization Complete : Time (s): cpu = 00:00:55 ; elapsed = 00:01:04 . Memory (MB): peak = 1074.691 ; gain = 50.066
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 1391.887 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 62 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 1074.691 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 59 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1391.887 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1074.691 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-42 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+42 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:39 ; elapsed = 00:00:46 . Memory (MB): peak = 1391.887 ; gain = 694.059
+synth_design: Time (s): cpu = 00:01:04 ; elapsed = 00:01:17 . Memory (MB): peak = 1074.691 ; gain = 50.066
 INFO: [Common 17-1381] The checkpoint 'C:/nonseol/dino2/dino2.runs/synth_1/top_dino.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_dino_utilization_synth.rpt -pb top_dino_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Nov 27 19:01:14 2025...
+INFO: [Common 17-206] Exiting Vivado at Sat Dec  6 17:17:44 2025...

@@ -38,10 +38,13 @@ module lcd_driver (
     localparam CMD_CLEAR   = 8'h01;
     localparam CMD_ENTRY   = 8'h06;
 
-    localparam PWR_WAIT_CNT   = 16'd50000;
-    localparam PULSE_WIDTH    = 16'd2;
-    localparam EXEC_WAIT      = 16'd80;
-    localparam CLEAR_WAIT     = 16'd2000;
+    localparam integer PWR_WAIT_CNT = 250000;
+    localparam integer PULSE_WIDTH  = 2;
+    localparam integer EXEC_WAIT    = 400;
+    localparam integer CLEAR_WAIT   = 10000;
+    
+    reg [31:0] wait_cnt;
+
 
     reg [7:0] cgram_init [0:63];
     integer i;
@@ -188,7 +191,6 @@ module lcd_driver (
     end
 
     reg [3:0]  lstate, lstate_next;
-    reg [15:0] wait_cnt;
     reg [5:0]  cgram_idx;
     reg [4:0]  ddram_idx;
     reg [7:0]  send_byte;
@@ -204,7 +206,7 @@ module lcd_driver (
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             lstate      <= L_PWR_WAIT;
-            wait_cnt    <= 16'd0;
+            wait_cnt    <= 32'd0;
             cgram_idx   <= 6'd0;
             ddram_idx   <= 5'd0;
             lcd_en      <= 1'b0;
@@ -221,7 +223,7 @@ module lcd_driver (
                     if (wait_cnt < PWR_WAIT_CNT)
                         wait_cnt <= wait_cnt + 1'b1;
                     else
-                        wait_cnt <= 16'd0;
+                        wait_cnt <= 32'd0;
                 end
 
                 L_FUNCSET: begin
@@ -259,21 +261,23 @@ module lcd_driver (
                         return_state <= L_CGRAM_DATA;
                     end else begin
                         // finished CGRAM load
+                        cgram_idx    <= 6'd0;
                         return_state <= L_IDLE;
                     end
                 end
 
                 L_CGRAM_DATA: begin
-                    if (cgram_idx < 6'd48) begin
-                        send_byte <= cgram_init[cgram_idx];
-                        send_rs   <= 1'b1;
-                        cgram_idx <= cgram_idx + 1'b1;
-                        // next return -> addr (to set next CGRAM address) unless finished
-                        return_state <= (cgram_idx + 1 < 6'd48) ? L_CGRAM_ADDR : L_IDLE;
-                        end else begin
-                            return_state <= L_IDLE;
-                        end
+                send_byte <= cgram_init[cgram_idx];
+                send_rs   <= 1'b1;
+                
+                if (cgram_idx == 6'd47) begin
+                    cgram_idx    <= 6'd0;
+                    return_state <= L_IDLE;
+                end else begin
+                    cgram_idx    <= cgram_idx + 1'b1;
+                    return_state <= L_CGRAM_ADDR;
                 end
+            end
 
                 L_IDLE: begin
                     ddram_idx <= 5'd0;
@@ -327,7 +331,7 @@ module lcd_driver (
                             lcd_rs   <= send_rs;
                             lcd_data <= send_byte;
                             lcd_en   <= 1'b1;
-                            wait_cnt <= 16'd0;
+                            wait_cnt <= 32'd0;
                             send_phase <= 2'd1;
                         end
                         2'd1: begin
@@ -335,7 +339,7 @@ module lcd_driver (
                                 wait_cnt <= wait_cnt + 1'b1;
                             else begin
                                 lcd_en    <= 1'b0;
-                                wait_cnt  <= 16'd0;
+                                wait_cnt  <= 32'd0;
                                 send_phase<= 2'd2;
                             end
                         end
@@ -344,14 +348,14 @@ module lcd_driver (
                                 if (wait_cnt < CLEAR_WAIT-1)
                                     wait_cnt <= wait_cnt + 1'b1;
                                 else begin
-                                    wait_cnt   <= 16'd0;
+                                    wait_cnt   <= 32'd0;
                                     send_phase <= 2'd0;
                                 end
                             end else begin
                                 if (wait_cnt < EXEC_WAIT-1)
                                     wait_cnt <= wait_cnt + 1'b1;
                                 else begin
-                                    wait_cnt   <= 16'd0;
+                                    wait_cnt   <= 32'd0;
                                     send_phase <= 2'd0;
                                 end
                             end
