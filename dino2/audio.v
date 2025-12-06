@@ -13,113 +13,51 @@ module mem_bgm #(
     reg [31:0] rom [0:DEPTH-1];
     
     initial begin
-        rom[0]  = {16'd659, 16'd150};
-        rom[1]  = {16'd659, 16'd150};
-        rom[2]  = {16'd0,   16'd150};
-        rom[3]  = {16'd659, 16'd150};
-        rom[4]  = {16'd0,   16'd150};
-        rom[5]  = {16'd523, 16'd150};
-        rom[6]  = {16'd659, 16'd150};
-        rom[7]  = {16'd0,   16'd150};
-        rom[8]  = {16'd784, 16'd300};
-        rom[9]  = {16'd0,   16'd300};
-        rom[10] = {16'd392, 16'd300};
-        rom[11] = {16'd0,   16'd300};
-    
-        rom[12] = {16'd523, 16'd150};
-        rom[13] = {16'd0,   16'd75};
-        rom[14] = {16'd392, 16'd150};
-        rom[15] = {16'd0,   16'd75};
-        rom[16] = {16'd330, 16'd150};
-        rom[17] = {16'd0,   16'd150};
-    
-        rom[18] = {16'd440, 16'd150};
-        rom[19] = {16'd494, 16'd150};
-        rom[20] = {16'd466, 16'd150};
-        rom[21] = {16'd440, 16'd150};
-        rom[22] = {16'd392, 16'd150};
-        rom[23] = {16'd659, 16'd150};
-        rom[24] = {16'd784, 16'd150};
-        rom[25] = {16'd880, 16'd300};
-        rom[26] = {16'd0,   16'd150};
-    
-        rom[27] = {16'd784, 16'd150};
-        rom[28] = {16'd659, 16'd150};
-        rom[29] = {16'd698, 16'd150};
-        rom[30] = {16'd740, 16'd300};
-        rom[31] = {16'd659, 16'd300};
-        rom[32] = {16'd523, 16'd300};
-        rom[33] = {16'd587, 16'd300};
-        rom[34] = {16'd494, 16'd300};
-    
-        rom[35] = {16'd523, 16'd150};
-        rom[36] = {16'd0,   16'd75};
-        rom[37] = {16'd392, 16'd150};
-        rom[38] = {16'd0,   16'd75};
-        rom[39] = {16'd330, 16'd150};
-        rom[40] = {16'd0,   16'd150};
-    
-        rom[41] = {16'd440, 16'd150};
-        rom[42] = {16'd494, 16'd150};
-        rom[43] = {16'd466, 16'd150};
-        rom[44] = {16'd440, 16'd150};
-        rom[45] = {16'd392, 16'd150};
-        rom[46] = {16'd659, 16'd150};
-        rom[47] = {16'd784, 16'd150};
-        rom[48] = {16'd880, 16'd300};
-        rom[49] = {16'd0,   16'd150};
-    
-        rom[50] = {16'd784, 16'd150};
-        rom[51] = {16'd659, 16'd150};
-        rom[52] = {16'd698, 16'd150};
-        rom[53] = {16'd740, 16'd300};
-        rom[54] = {16'd659, 16'd300};
-        rom[55] = {16'd523, 16'd300};
-        rom[56] = {16'd587, 16'd300};
-        rom[57] = {16'd494, 16'd300};
-    
-        rom[58] = {16'd784, 16'd300};
-        rom[59] = {16'd740, 16'd150};
-        rom[60] = {16'd698, 16'd150};
-        rom[61] = {16'd659, 16'd150};
-        rom[62] = {16'd0,   16'd150};
-        rom[63] = {16'd698, 16'd150};
-        rom[64] = {16'd740, 16'd150};
-        rom[65] = {16'd784, 16'd300};
-        rom[66] = {16'd587, 16'd150};
-        rom[67] = {16'd659, 16'd150};
-        rom[68] = {16'd698, 16'd300};
-        rom[69] = {16'd659, 16'd150};
-        rom[70] = {16'd587, 16'd150};
-        rom[71] = {16'd523, 16'd150};
-        rom[72] = {16'd0,   16'd150};
-    
-        rom[73] = {16'd330, 16'd300};
-        rom[74] = {16'd392, 16'd300};
-        rom[75] = {16'd440, 16'd300};
-        rom[76] = {16'd0,   16'd150};
-        rom[77] = {16'd392, 16'd150};
-        rom[78] = {16'd330, 16'd150};
-        rom[79] = {16'd294, 16'd150};
-        rom[80] = {16'd0,   16'd150};
-    
-        rom[81] = {16'd330, 16'd300};
-        rom[82] = {16'd392, 16'd300};
-        rom[83] = {16'd440, 16'd300};
-        rom[84] = {16'd0,   16'd150};
-        rom[85] = {16'd392, 16'd150};
-        rom[86] = {16'd330, 16'd150};
-        rom[87] = {16'd294, 16'd150};
-    
-        // 반복 구간 자동 복사 (88~175)
-        for (i = 88; i < 176; i = i + 1) begin
-            rom[i] = rom[i - 76];
-        end
-    
-        rom[176] = {16'd0, 16'd500};
-        rom[177] = {16'd0, 16'd500};
-        rom[178] = {16'd0, 16'd500};
-        rom[179] = {16'd0, 16'd500};
+        rom[0] = {16'd659, 16'd150};
+        rom[1] = {16'd659, 16'd150};
+        rom[2] = {16'd659, 16'd300};
+        rom[3] = {16'd523, 16'd150};
+        rom[4] = {16'd659, 16'd300};
+        rom[5] = {16'd784, 16'd300};
+        rom[6] = {16'd0, 16'd300};
+        rom[7] = {16'd392, 16'd300};
+        rom[8] = {16'd0, 16'd300};
+        rom[9] = {16'd330, 16'd300};
+        rom[10] = {16'd0, 16'd300};
+        rom[11] = {16'd440, 16'd300};
+        rom[12] = {16'd494, 16'd300};
+        rom[13] = {16'd466, 16'd150};
+        rom[14] = {16'd440, 16'd300};
+        rom[15] = {16'd392, 16'd150};
+        rom[16] = {16'd659, 16'd300};
+        rom[17] = {16'd784, 16'd300};
+        rom[18] = {16'd880, 16'd300};
+        rom[19] = {16'd698, 16'd150};
+        rom[20] = {16'd784, 16'd300};
+        rom[21] = {16'd659, 16'd150};
+        rom[22] = {16'd523, 16'd150};
+        rom[23] = {16'd587, 16'd300};
+        rom[24] = {16'd494, 16'd300};
+        rom[25] = {16'd0, 16'd600};
+        rom[26] = {16'd392, 16'd300};
+        rom[27] = {16'd0, 16'd300};
+        rom[28] = {16'd330, 16'd300};
+        rom[29] = {16'd0, 16'd300};
+        rom[30] = {16'd440, 16'd300};
+        rom[31] = {16'd494, 16'd300};
+        rom[32] = {16'd466, 16'd150};
+        rom[33] = {16'd440, 16'd300};
+        rom[34] = {16'd392, 16'd150};
+        rom[35] = {16'd659, 16'd300};
+        rom[36] = {16'd784, 16'd300};
+        rom[37] = {16'd880, 16'd300};
+        rom[38] = {16'd698, 16'd150};
+        rom[39] = {16'd784, 16'd300};
+        rom[40] = {16'd659, 16'd150};
+        rom[41] = {16'd523, 16'd150};
+        rom[42] = {16'd587, 16'd150};
+        rom[43] = {16'd494, 16'd450};
+        rom[44] = {16'd0, 16'd600};
     end
     
     reg [ADDR_WIDTH-1:0] addr_reg;
@@ -245,7 +183,7 @@ module mem_jump #(
 endmodule
 
 module piezo_player #(
-    parameter integer CLK_FREQ   = 50000000,
+    parameter integer CLK_FREQ   = 500000000,
     parameter integer ADDR_WIDTH = 8,
     parameter integer READ_LATENCY = 2
 )(
@@ -378,7 +316,7 @@ module piezo_player #(
 endmodule
 
 module bgm #(
-    parameter integer CLK_FREQ   = 5000000,
+    parameter integer CLK_FREQ   = 50000000,
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
@@ -416,7 +354,7 @@ module bgm #(
 endmodule
 
 module sfx_item #(
-    parameter integer CLK_FREQ   = 5000000,
+    parameter integer CLK_FREQ   = 50000000,
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
@@ -454,7 +392,7 @@ module sfx_item #(
 endmodule
 
 module sfx_debuf #(
-    parameter integer CLK_FREQ   = 5000000,
+    parameter integer CLK_FREQ   = 50000000,
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
@@ -492,7 +430,7 @@ module sfx_debuf #(
 endmodule
 
 module sfx_jump #(
-    parameter integer CLK_FREQ   = 5000000,
+    parameter integer CLK_FREQ   = 50000000,
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
@@ -530,7 +468,7 @@ module sfx_jump #(
 endmodule
 
 module audio #(
-    parameter integer CLK_FREQ   = 5000000,
+    parameter integer CLK_FREQ   = 50000000,
     parameter integer ADDR_WIDTH = 8
 )(
     input wire clk,
@@ -539,16 +477,16 @@ module audio #(
 );
 
     wire music;
-    bgm b1(.clk(clk), .play(state[0]), .piezo(music));
+    bgm #(CLK_FREQ) b1(.clk(clk), .play(state[0]), .piezo(music));
     
     wire out1;
-    sfx_item b2(.clk(clk), .play(state[1]), .piezo(out1));
+    sfx_item #(CLK_FREQ) b2(.clk(clk), .play(state[1]), .piezo(out1));
     
     wire out2;
-    sfx_debuf b3(.clk(clk), .play(state[2]), .piezo(out2));
+    sfx_debuf #(CLK_FREQ) b3(.clk(clk), .play(state[2]), .piezo(out2));
     
     wire out3;
-    sfx_jump b4(.clk(clk), .play(state[3]), .piezo(out3));
+    sfx_jump #(CLK_FREQ) b4(.clk(clk), .play(state[3]), .piezo(out3));
     
     wire sfx;
     assign sfx = out1 | out2 | out3;
