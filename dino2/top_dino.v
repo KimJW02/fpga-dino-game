@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-//TODO: 배경음악 연결, 이벤트 발생시 피에조 + full color led 변화
 module top_dino (
     input  wire clk_50m,
     input  wire rst_n,
@@ -46,7 +45,13 @@ module top_dino (
     output wire LED_D5,
     output wire LED_D6,
     output wire LED_D7,
-    output wire LED_D8
+    output wire LED_D8,
+    
+    // Full Color LED
+    output wire [11:0] FCLED,
+    
+    // Piezo
+    output wire PIEZO
 );
     // 사용자 요구 유지
     wire rst_core_n = ~rst_n;
@@ -596,5 +601,12 @@ module top_dino (
         .lcd_en     (TLCD_E),
         .lcd_data   (TLCD_D)
     );
+    
+    // Full Color LED
+    full_color_led u_fcled(clk_main, rst_core_n, hit_obstacle, hit_life, FCLED);
 
+    // PIEZO
+    wire [3:0] audio_state;
+    assign audio_state = { state == S_PLAY, hit_life_pulse, hit_debuff_pulse, jump_state == DJ_ASCEND };
+    audio u_audio (clk_main, audio_state, PIEZO);
 endmodule
