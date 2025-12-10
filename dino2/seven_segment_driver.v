@@ -30,7 +30,7 @@ module seven_segment_driver (
     always @(posedge clk_scan or negedge rst_n) begin
         if (!rst_n) begin
             idx      <= 3'd0;
-            seg_data <= 8'hFF;  // 기본: 전부 OFF
+            seg_data <= 8'hFF;  // ??: ???? OFF
             an       <= 8'h00;
         end else begin
             case (idx)

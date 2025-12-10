@@ -6,6 +6,7 @@ module full_color_led #(
     input  wire rst_n,
     input  wire hit_obst,
     input  wire hit_bonus,
+    input  wire hit_debuff,
     output reg  [11:0] fled
 );
     localparam integer C = 2 * P;
@@ -19,11 +20,12 @@ module full_color_led #(
     // edge detect regs
     wire pulse;
     reg  pulse_d;
-    reg  hit_obst_d, hit_bonus_d;
+    reg  hit_obst_d, hit_bonus_d, hit_debuff_d;
 
     wire pulse_rise      = pulse & ~pulse_d;
     wire hit_obst_rise   = hit_obst & ~hit_obst_d;
     wire hit_bonus_rise  = hit_bonus & ~hit_bonus_d;
+    wire hit_debuff_rise  = hit_debuff & ~hit_debuff_d;
 
     clk_divider #(.DIV(25000000)) cd (
         .clk_in(clk),
@@ -55,6 +57,11 @@ module full_color_led #(
             next_fled  = 12'd0;
         end else if (hit_bonus_rise) begin
             next_color = GREEN;
+            next_cnt   = 0;
+            next_is_on = 0;
+            next_fled  = 12'd0;
+        end else if (hit_debuff_rise) begin
+            next_color = BLUE;
             next_cnt   = 0;
             next_is_on = 0;
             next_fled  = 12'd0;
@@ -100,11 +107,13 @@ module full_color_led #(
             pulse_d    <= 0;
             hit_obst_d <= 0;
             hit_bonus_d<= 0;
+            hit_debuff_d<= 0;
         end else begin
             // update edge detectors first
             pulse_d    <= pulse;
             hit_obst_d <= hit_obst;
             hit_bonus_d<= hit_bonus;
+            hit_debuff_d<= hit_debuff;
 
             // update state from next_*
             color <= next_color;

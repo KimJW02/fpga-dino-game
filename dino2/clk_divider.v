@@ -34,3 +34,34 @@ module clk_divider #(
         end
     end
 endmodule
+
+module pulse_stretch #(
+    parameter integer CLK_FREQ = 50_000_000,   // 50 MHz
+    parameter integer STRETCH_MS = 500          // 500 ms
+)(
+    input  wire clk,
+    input  wire pulse_in,       // 1-clock pulse
+    output reg  pulse_out
+);
+    localparam integer TARGET_COUNT = (CLK_FREQ / 1000) * STRETCH_MS;
+
+    reg [$clog2(TARGET_COUNT+1)-1:0] cnt = 0;
+    reg active = 0;
+
+    always @(posedge clk) begin
+        if (!active) begin
+            if (pulse_in) begin
+                active    <= 1;
+                pulse_out <= 1;
+                cnt       <= 0;
+            end
+        end else begin
+            if (cnt >= TARGET_COUNT - 1) begin
+                active    <= 0;
+                pulse_out <= 0;
+            end else begin
+                cnt <= cnt + 1;
+            end
+        end
+    end
+endmodule
