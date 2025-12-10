@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+//TODO: 배경음악 연결, 이벤트 발생시 피에조 + full color led 변화
 module top_dino (
     input  wire clk_50m,
     input  wire rst_n,
@@ -45,13 +46,7 @@ module top_dino (
     output wire LED_D5,
     output wire LED_D6,
     output wire LED_D7,
-    output wire LED_D8,
-    
-    // Full Color LED
-    output wire [11:0] FCLED,
-    
-    // Piezo
-    output wire PIEZO
+    output wire LED_D8
 );
     // 사용자 요구 유지
     wire rst_core_n = ~rst_n;
@@ -528,17 +523,16 @@ module top_dino (
     // =========================================================
     // 15) BCD 변환 + 7-seg
     // =========================================================
-    wire [6:0] seg7;
-    wire [7:0] an7;
-
     wire bcd_done;
     wire bcd_start_pulse = (state == S_PLAY) && logic_tick;
 
     reg [31:0] bcd_latched;
     always @(posedge clk_main or negedge rst_core_n) begin
-        if (!rst_core_n) bcd_latched <= 0;
+        if (!rst_core_n) bcd_latched <= 32'd0;
+        else if (state != S_PLAY) bcd_latched <= 32'd0;
         else if (bcd_done) bcd_latched <= score_bcd;
     end
+
 
     binary_to_bcd_sequential u_bcd (
         .clk    (clk_main),
@@ -549,17 +543,17 @@ module top_dino (
         .bcd_out(score_bcd)
     );
 
-    // polarity는 드라이버가 처리
+    wire [7:0] seg8;
+    wire [7:0] an7;
+    
     seven_segment_driver u_seg (
         .clk_scan (scan_clk),
         .rst_n    (rst_core_n),
         .bcd_in   (bcd_latched),
-        .seg      (seg7),
+        .seg_data (seg8),
         .an       (an7)
     );
-
-    // an7: logical one-hot
-    // board digit select active-low 가정 + "오른쪽 정렬" 위해 reverse
+    
     assign AR_SEG_S0 = ~an7[7];
     assign AR_SEG_S1 = ~an7[6];
     assign AR_SEG_S2 = ~an7[5];
@@ -568,18 +562,12 @@ module top_dino (
     assign AR_SEG_S5 = ~an7[2];
     assign AR_SEG_S6 = ~an7[1];
     assign AR_SEG_S7 = ~an7[0];
-
-
-    // seg7 비트 순서: [6]=a ... [0]=g
-    assign AR_SEG_A = ~seg7[0];
-    assign AR_SEG_B = ~seg7[1];
-    assign AR_SEG_C = ~seg7[2];
-    assign AR_SEG_D = ~seg7[3];
-    assign AR_SEG_E = ~seg7[4];
-    assign AR_SEG_F = ~seg7[5];
-    assign AR_SEG_G = ~seg7[6];
-    assign AR_SEG_DP = 1'b1;  // DP OFF (active-low 가정)
-
+    
+    // seg8 비트 순서 = {A,B,C,D,E,F,G,DP}
+    assign {AR_SEG_A, AR_SEG_B, AR_SEG_C, AR_SEG_D,
+            AR_SEG_E, AR_SEG_F, AR_SEG_G, AR_SEG_DP} = seg8;
+    
+ 
 
     // =========================================================
     // 16) LCD Driver
@@ -601,12 +589,5 @@ module top_dino (
         .lcd_en     (TLCD_E),
         .lcd_data   (TLCD_D)
     );
-    
-    // Full Color LED
-    full_color_led u_fcled(clk_main, rst_core_n, hit_obstacle, hit_life, FCLED);
 
-    // PIEZO
-    wire [3:0] audio_state;
-    assign audio_state = { state == S_PLAY, hit_life_pulse, hit_debuff_pulse, jump_state == DJ_ASCEND };
-    audio u_audio (clk_main, audio_state, PIEZO);
 endmodule

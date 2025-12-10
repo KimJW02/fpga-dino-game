@@ -1,38 +1,37 @@
-`timescale 1ns / 1ps
 module seven_segment_driver (
     input  wire        clk_scan,
     input  wire        rst_n,
     input  wire [31:0] bcd_in,
-    output reg  [6:0]  seg,   // [0]=A [1]=B [2]=C [3]=D [4]=E [5]=F [6]=G
-    output reg  [7:0]  an     // one-hot, 1=selected
+    output reg  [7:0]  seg_data, // A,B,C,D,E,F,G,DP (active-low)
+    output reg  [7:0]  an        // one-hot logical: 1=selected
 );
     reg [2:0] idx;
     reg [3:0] digit;
 
-    function automatic [6:0] seg_logical;
+    function automatic [7:0] seg_pat;
         input [3:0] d;
         begin
             case (d)
-                4'd0: seg_logical = 7'b0111111; // A B C D E F on
-                4'd1: seg_logical = 7'b0000110; // B C
-                4'd2: seg_logical = 7'b1011011; // A B D E G
-                4'd3: seg_logical = 7'b1001111; // A B C D G
-                4'd4: seg_logical = 7'b1100110; // B C F G
-                4'd5: seg_logical = 7'b1101101; // A C D F G
-                4'd6: seg_logical = 7'b1111101; // A C D E F G
-                4'd7: seg_logical = 7'b0000111; // A B C
-                4'd8: seg_logical = 7'b1111111; // all
-                4'd9: seg_logical = 7'b1101111; // A B C D F G
-                default: seg_logical = 7'b0000000; // blank
+                4'd0: seg_pat = ~8'b00000011;
+                4'd1: seg_pat = ~8'b10011111;
+                4'd2: seg_pat = ~8'b00100101;
+                4'd3: seg_pat = ~8'b00001101;
+                4'd4: seg_pat = ~8'b10011001;
+                4'd5: seg_pat = ~8'b01001001;
+                4'd6: seg_pat = ~8'b01000001;
+                4'd7: seg_pat = ~8'b00011011;
+                4'd8: seg_pat = ~8'b00000001;
+                4'd9: seg_pat = ~8'b00001001;
+                default: seg_pat = 8'b11111100; // OFF
             endcase
         end
     endfunction
 
     always @(posedge clk_scan or negedge rst_n) begin
         if (!rst_n) begin
-            idx <= 3'd0;
-            seg <= 7'b0000000; // blank logical
-            an  <= 8'b00000000; // none selected logical
+            idx      <= 3'd0;
+            seg_data <= 8'hFF;  // 기본: 전부 OFF
+            an       <= 8'h00;
         end else begin
             case (idx)
                 3'd0: digit <= bcd_in[3:0];
@@ -43,13 +42,12 @@ module seven_segment_driver (
                 3'd5: digit <= bcd_in[23:20];
                 3'd6: digit <= bcd_in[27:24];
                 3'd7: digit <= bcd_in[31:28];
-                default: digit <= 4'd0;
             endcase
 
-            seg <= seg_logical(digit);
-            an  <= (8'b00000001 << idx); // one-hot logical
+            seg_data <= seg_pat(digit);
+            an       <= (8'b00000001 << idx);
 
-            idx <= idx + 1'b1;
+            idx      <= idx + 1'b1;
         end
     end
 endmodule

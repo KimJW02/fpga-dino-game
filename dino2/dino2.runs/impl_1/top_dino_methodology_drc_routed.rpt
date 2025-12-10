@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Sat Dec  6 17:20:26 2025
+| Date         : Wed Dec 10 19:54:24 2025
 | Host         : DESKTOP-GD46CMC running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_dino_methodology_drc_routed.rpt -pb top_dino_methodology_drc_routed.pb -rpx top_dino_methodology_drc_routed.rpx
 | Design       : top_dino
@@ -23,11 +23,11 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 508
+             Violations found: 509
 +-----------+------------------+-----------------------------+------------+
 | Rule      | Severity         | Description                 | Violations |
 +-----------+------------------+-----------------------------+------------+
-| TIMING-17 | Critical Warning | Non-clocked sequential cell | 508        |
+| TIMING-17 | Critical Warning | Non-clocked sequential cell | 509        |
 +-----------+------------------+-----------------------------+------------+
 
 2. REPORT DETAILS
@@ -2539,37 +2539,42 @@ Related violations: <none>
 
 TIMING-17#502 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[0]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[0]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#503 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[1]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[1]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#504 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[2]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[2]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#505 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[3]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[3]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#506 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[4]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[4]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#507 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[5]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[5]/C is not reached by a timing clock
 Related violations: <none>
 
 TIMING-17#508 Critical Warning
 Non-clocked sequential cell  
-The clock pin u_seg/seg_reg[6]_inv/C is not reached by a timing clock
+The clock pin u_seg/seg_data_reg[6]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#509 Critical Warning
+Non-clocked sequential cell  
+The clock pin u_seg/seg_data_reg[7]/C is not reached by a timing clock
 Related violations: <none>
 
 
