@@ -135,19 +135,25 @@ module top_dino (
     //    - cell_tick : "실제 1칸 이동/판정/점프 단위"
     // =========================================================
     localparam integer CLK_MAIN_FREQ_HZ = 100_000;
-    localparam integer MOVE_HZ  = 50;  // 기본 게임 틱(권장)
-    localparam integer MOVE_DIV = (CLK_MAIN_FREQ_HZ / MOVE_HZ < 1) ? 1 : (CLK_MAIN_FREQ_HZ / MOVE_HZ);
-    localparam integer MOVE_DIV_W = $clog2(MOVE_DIV + 1);
+    localparam integer MOVE_DIV_W = 12;
     
+    wire [7:0] move_hz_input; // 기본 게임 틱 25, 40, 50
+    reg [7:0] move_hz = 8'd25;
+    reg [MOVE_DIV_W-1:0] move_div;
     reg [MOVE_DIV_W-1:0] move_div_cnt;
     reg move_tick;
+    
+    always @(*) begin
+        move_hz <= move_hz_input;
+        move_div = (CLK_MAIN_FREQ_HZ / move_hz) - 1;
+    end
     
     always @(posedge clk_main or negedge rst_core_n) begin
         if (!rst_core_n) begin
             move_div_cnt <= {MOVE_DIV_W{1'b0}};
             move_tick    <= 1'b0;
         end else begin
-            if (move_div_cnt >= MOVE_DIV-1) begin
+            if (move_div_cnt >= move_div) begin
                 move_div_cnt <= {MOVE_DIV_W{1'b0}};
                 move_tick    <= 1'b1;
             end else begin
@@ -190,7 +196,7 @@ module top_dino (
 
     reg [2:0] state, next_state;
     reg [31:0] hello_cnt_main;
-    localparam HELLO_TICKS = 125_000; // clk_main 기준
+    localparam HELLO_TICKS = 500_000; // clk_main 기준
 
     reg [7:0] life_count;
 
@@ -370,6 +376,7 @@ module top_dino (
     lfsr16 u_lfsr (
         .clk  (clk_main),
         .rst_n(rst_core_n),
+        .user_src({sw1_easy, sw2_normal, sw3_hard, btn_jump}),
         .q    (lfsr_q)
     );
 
@@ -379,14 +386,29 @@ module top_dino (
     wire [7:0]  obs_th, life_th, debuff_th;
     wire [5:0]  obs_gap;
     wire [15:0] life_interval;
+    reg [1:0] mode;
+
+    always @(posedge clk_main or negedge rst_core_n) begin
+        if (!rst_core_n) begin
+            mode <= 2'b00; // 기본 Easy
+        end else if (sw1_easy) begin
+            mode <= 2'b00;
+        end else if (sw2_normal) begin
+            mode <= 2'b01;
+        end else if (sw3_hard) begin
+            mode <= 2'b10;
+        end
+        // else 없음 → 이전 mode 유지
+    end
 
     difficulty_manage u_diff (
-        .mode(sw1_easy ? 2'b00 : sw2_normal ? 2'b01 : 2'b10),
+        .mode(mode),
         .obs_th(obs_th),
         .obs_gap(obs_gap),
         .life_interval(life_interval),
         .life_th(life_th),
-        .debuff_th(debuff_th)
+        .debuff_th(debuff_th),
+        .move_hz(move_hz_input)
     );
 
     // =========================================================
@@ -448,10 +470,10 @@ module top_dino (
     // =========================================================
     // 12) Collision (logic_tick 단위로 반영)
     // =========================================================
-    wire hit_obstacle = 1'b0; //디버깅때문에 무시 , TODO: 주석제거
-        /*!is_safe_spawn &&
+    wire hit_obstacle = //디버깅때문에 무시 , TODO: 주석제거
+        !is_safe_spawn &&
         ((dino_row_r == 1'b1 && obs_bot[15]) ||
-         (dino_row_r == 1'b0 && obs_top[15]));*/
+         (dino_row_r == 1'b0 && obs_top[15]));
 
     wire hit_life_level =
         !is_safe_spawn &&
@@ -513,11 +535,7 @@ module top_dino (
     // =========================================================
     // 14) Score (logic_tick 기준으로 증가/감점)
     // =========================================================
-    score_counter #(
-        .BASE_INC(10),
-        .DEBUF_SCORE(300),
-        .MAX_SCORE(32'd99999999)
-    ) u_score (
+    score_counter u_score (
         .clk_game  (clk_main),
         .rst_n     (rst_core_n),
         .enable    (state == S_PLAY && logic_tick),
@@ -533,9 +551,13 @@ module top_dino (
 
     reg [31:0] bcd_latched;
     always @(posedge clk_main or negedge rst_core_n) begin
-        if (!rst_core_n) bcd_latched <= 32'd0;
-        else if (state != S_PLAY) bcd_latched <= 32'd0;
-        else if (bcd_done) bcd_latched <= score_bcd;
+        if (!rst_core_n) begin
+            bcd_latched <= 32'd0;
+        end else if (bcd_done) begin
+            bcd_latched <= score_bcd;
+        end else if (state == S_HELLO || state == S_MODE || state == S_READY) begin
+            bcd_latched <= 32'd0;
+        end
     end
 
 
